@@ -70,9 +70,7 @@ public class SAPServiceProvider extends SAAgent implements  HttpClientNet.OnResp
 		public void onError(int channelId, String errorString, int error) {
 			Log.e(TAG, "Connection is not alive ERROR: " + errorString + "  "
 					+ error);
-			
 		}
-
 		@Override
 		public void onReceive(int channelId, byte[] data)
 		{
@@ -128,14 +126,20 @@ public class SAPServiceProvider extends SAAgent implements  HttpClientNet.OnResp
 	      		   editer2.putInt("mewalk",(mewalk+1));
 	      		   editer2.commit();
 	      		   
-	
-		      	   Intent intent = new Intent("SAPWalkAction");
-		      	   sendBroadcast(intent);
+	      		   if(mewalk%10 == 0)
+	      		   {
+			      	   Intent intent = new Intent(SAPServiceProvider.this,SAPReceiver.class);
+			      	   intent.putExtra("flag", 1); //walk 1;
+			      	   sendBroadcast(intent);
+	      		   }
 	       	   }
 	       }
            else if(strToUpdateUI.equals("match"))
            {
               //랜덤 찾기
+        	   Intent intent = new Intent(SAPServiceProvider.this,SAPReceiver.class);
+	      	   intent.putExtra("flag", 2); //match 2
+	      	   sendBroadcast(intent);
         	  //서버통신
            }
 	       else if(strToUpdateUI.equals("setup"))
@@ -162,11 +166,68 @@ public class SAPServiceProvider extends SAAgent implements  HttpClientNet.OnResp
 	      	  		 loginService.setParam(loginParams);
 	      	  		 loginService.doAsyncExecute(SAPServiceProvider.this);
 	       	     }
+	       	     else
+	       	     {
+	       	    	if(uHandler == null){
+		   				Log.e(TAG,"Error, can not get HelloAccessoryProviderConnection handler");
+		   				return;
+		   			}
+					final JSONObject message = new JSONObject();
+					SharedPreferences sp2 = getSharedPreferences("gearinfo",MODE_PRIVATE);
+		            Log.d("SAP MESSAGE", message.toString());
+           		 	message.put("code", "setup");
+           		 	message.put("mewalk", 0); //내걸음수
+           		 	message.put("mename", sp2.getString("mename", ""));
+           		    message.put("youname", 0); //상대걸음수
+           		 	message.put("youwalk", 0); //상대걸음수
+           		 	Log.d("SAP MESSAGE", message.toString());
+                 
+		   			 if(uHandler == null){
+		   				Log.e(TAG,"Error, can not get HelloAccessoryProviderConnection handler");
+		   				return;
+		   			 }
+		   			 new Thread(new Runnable() 
+		   			 {
+		   				public void run()
+		   				{
+		   					try
+		   					{
+		   						uHandler.send(WALK_CHANNEL_ID, message.toString().getBytes());
+		   					} 
+		   					catch (IOException e)
+		   					{
+		   						e.printStackTrace();
+		   					}
+		   				}
+		   			 }).start();
+	       	     }
 	    	   }
 	    	   catch (Exception e1) {
 	     			// TODO Auto-generated catch block
 	     				e1.printStackTrace();
 	     			}
+	       }
+	       else
+	       {
+	    	   StringTokenizer stk =  new StringTokenizer(strToUpdateUI,"/");
+	    	   int num;
+	    	   if(stk.nextToken().equals("tease"));
+	    	   {
+	    		   num = Integer.valueOf(stk.nextToken());
+	    		   Log.i("tease", num+"이 왓다.");
+	    		   if(num==0)
+	    		   {
+	    			   //삿대질
+	    		   }
+	    		   else if(num==1)
+	    		   {
+	    			   //메롱
+	    		   }
+	    		   else if(num==2)
+	    		   {
+	    			   //3명
+	    		   }
+	    	   }
 	       }
 		}
 		@Override

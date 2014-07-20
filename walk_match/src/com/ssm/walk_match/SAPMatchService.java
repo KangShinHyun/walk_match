@@ -16,6 +16,7 @@ import android.util.Log;
 import com.ssm.walk_match.main.BaseActivity;
 import com.ssm.walk_match.main.FirstActivity;
 import com.ssm.walk_match.main.FriendActivity;
+import com.ssm.walk_match.main.LodaingFirstActivity;
 import com.ssm.walk_match.main.LoginActivity;
 import com.ssm.walk_match.main.MainActivity;
 import com.ssm.walk_match.main.MessageActivity;
@@ -23,7 +24,7 @@ import com.ssm.walk_match.main.RankActivity;
 import com.ssm.walk_match.main.SignActivity;
 import com.ssm.walk_match.util.AppManager;
 
-public class SAPService extends Service
+public class SAPMatchService extends Service
 {
 	@Override
 	public IBinder onBind(Intent intent)
@@ -40,7 +41,7 @@ public class SAPService extends Service
 	public void onDestroy() {
 		super.onDestroy();
 	}
-	public static boolean SAPWalkAction = false;
+	public static boolean SAPMatchAction = false;
 	private boolean isActivityTop()
     {
          ActivityManager activityManager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
@@ -88,7 +89,7 @@ public class SAPService extends Service
 	{
 		super.onStart(intent, startId);
 		Log.d("SAPService","SAPService in");
-		SAPWalkAction = true;
+		SAPMatchAction = true;
 		if(isActivityTop())
 		{
 			 Intent intent2 = new Intent(AppManager.getInstance().getActivity(),MainActivity.class);
@@ -97,6 +98,9 @@ public class SAPService extends Service
 		}
 		else
 		{
+			Intent intent2 = new Intent(SAPMatchService.this,LodaingFirstActivity.class);
+            intent2.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent2);
 //			NotificationManager nm = (NotificationManager) this
 //					.getSystemService(Context.NOTIFICATION_SERVICE);
 //			Notification notification = new Notification(R.drawable.appicon,
@@ -109,7 +113,7 @@ public class SAPService extends Service
 //							| Intent.FLAG_ACTIVITY_CLEAR_TOP
 //							| Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET),
 //					PendingIntent.FLAG_UPDATE_CURRENT);
-//			notification.setLatestEventInfo(this, "Walk Match", "Match End!",
+//			notification.setLatestEventInfo(this, "Walk Match", "Match Start",
 //					pendingIntent);
 //			
 //			notification.flags = Notification.FLAG_AUTO_CANCEL;

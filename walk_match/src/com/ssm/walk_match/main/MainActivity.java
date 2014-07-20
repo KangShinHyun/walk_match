@@ -10,7 +10,6 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
@@ -26,6 +25,7 @@ import android.widget.Toast;
 import com.ssm.walk_match.AlarmReceiver;
 import com.ssm.walk_match.GCMIntentService;
 import com.ssm.walk_match.R;
+import com.ssm.walk_match.SAPMatchService;
 import com.ssm.walk_match.SAPService;
 import com.ssm.walk_match.arService;
 import com.ssm.walk_match.component.GiveUpPopup;
@@ -179,7 +179,7 @@ public class MainActivity extends BaseActivity implements HttpClientNet.OnRespon
 	       
 	        //알람이 끝났다 경기 끝!!
 	       
-	        if(GCMIntentService.whoWin == 1)
+	        else if(GCMIntentService.whoWin == 1)
 	        {
 	        	//내가짐
 	        	Log.d("onResume", "whoWin in 1");
@@ -211,6 +211,20 @@ public class MainActivity extends BaseActivity implements HttpClientNet.OnRespon
 	        	requestMatchGcmWin(fri_email);
 	        	cancel();
 	        }
+	        else if(SAPService.SAPWalkAction == true)
+			{
+				SAPService.SAPWalkAction = false;
+				Log.d("onResume", "SAPWalkAction in ");
+				setWalkUi();
+				
+			}
+
+	        else if(SAPMatchService.SAPMatchAction == true)
+	        {
+	        	SAPMatchService.SAPMatchAction = false;
+				Log.d("onResume", "SAPMatchAction in ");
+				requestMatch();
+	        }
 	        else if (sp.getBoolean("match_ing", false))
 			{
 				if (!sp.getString("email", "").equals("")) //상대가 있을때 리쥼타면 무조건 웨이크업
@@ -221,13 +235,7 @@ public class MainActivity extends BaseActivity implements HttpClientNet.OnRespon
 			}
 	        
 	        //사프 액션이올때
-			if(SAPService.SAPWalkAction == true)
-			{
-				SAPService.SAPWalkAction = false;
-				Log.d("onResume", "SAPWalkAction in ");
-				setWalkUi();
-				
-			}
+	        
         }
 	    
         

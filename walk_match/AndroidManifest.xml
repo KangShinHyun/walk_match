@@ -231,14 +231,15 @@
 				android:name="SAPService" />
 			</intent-filter>
 		</service>
-		<receiver android:name=".SAPReceiver"
-            	  android:process=":remote"
-            	  android:exported="false" >
+		<service android:name=".SAPMatchService"
+		   		 android:enabled="true"
+		   		 android:exported="false">
 			<intent-filter>
-				<action android:name="android.intent.action.SAPWalkAction" />
+			<action
+				android:name="SAPMatchService" />
 			</intent-filter>
-		</receiver>
-		
+		</service>
+		<receiver android:name=".SAPReceiver" />
     	<receiver android:name=".AlarmReceiver"
             	  android:process=":remote"
             	  android:exported="false" />
