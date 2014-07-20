@@ -588,6 +588,7 @@ public class MainActivity extends BaseActivity implements HttpClientNet.OnRespon
 		fri_email = "";
 		fri_name ="";
 		fri_nation = 0;
+		cancel();
 	}
 	public void setEndGame()
 	{
@@ -619,6 +620,7 @@ public class MainActivity extends BaseActivity implements HttpClientNet.OnRespon
 	    mTxtMyPoint.setText("0");
 	    mTxtFriStep.setText("0");
 	    mTxtFriPoint.setText("0");
+	    cancel();
 	}
 	@Override
 	public void onResponseReceived(String resContent) {
