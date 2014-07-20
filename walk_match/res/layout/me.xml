@@ -245,14 +245,8 @@
 			    	<RelativeLayout 
 			    	    android:id="@+id/live_no_tab"
 			    	    android:layout_width="match_parent"
-			    	    android:layout_height="100dip">
-			    	    <TextView 
-			    	        android:layout_width="wrap_content"
-			    	        android:layout_height="wrap_content"
-			    	        android:text="No Live Match"
-			    	        android:textSize="14dip"
-			    	        android:textColor="#ffffff"
-			    	        android:layout_centerInParent="true"/>
+			    	    android:layout_height="wrap_content"
+			    	    android:background="@drawable/no_match_game">
 			    	</RelativeLayout>
 			    	<RelativeLayout 
 			    	    android:id="@+id/live_tab"

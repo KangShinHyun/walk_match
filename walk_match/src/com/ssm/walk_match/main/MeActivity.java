@@ -322,6 +322,10 @@ public class MeActivity extends BaseActivity implements HttpClientNet.OnResponse
 					String step2 = jsonObject.optString("step2","");//¼ýÀÚ
 					listObject.add(new HistoryObject(time, man1, man2, name1, name2, step1, step2, nation1, nation2));
 				}
+				int win = LoginObject.getInstance().getVictory();
+				int lose = listObject.size() - LoginObject.getInstance().getVictory();
+				mTxtWin.setText(win);
+				mTxtLose.setText(lose);
 				if(meHisoryListView == null)
 				{
 					listSort();
