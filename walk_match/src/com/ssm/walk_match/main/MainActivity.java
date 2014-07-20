@@ -27,6 +27,7 @@ import com.ssm.walk_match.GCMIntentService;
 import com.ssm.walk_match.R;
 import com.ssm.walk_match.SAPMatchService;
 import com.ssm.walk_match.SAPService;
+import com.ssm.walk_match.SAPTeaseService;
 import com.ssm.walk_match.arService;
 import com.ssm.walk_match.component.GiveUpPopup;
 import com.ssm.walk_match.component.LosePopup;
@@ -168,6 +169,19 @@ public class MainActivity extends BaseActivity implements HttpClientNet.OnRespon
 	        	GCMIntentService.checkStyleTesase = 0;
 	        }
 	        
+	        if(SAPTeaseService.SAPTeaseAction == 1)
+	        {
+	        	requestGcm(1);
+	        }
+	        else if(SAPTeaseService.SAPTeaseAction == 2)
+	        {
+	        	requestGcm(2); 
+	        }
+	        else if(SAPTeaseService.SAPTeaseAction ==3)
+	        {
+	        	requestGcm(3);
+	        }
+	        
 	        //매치정해졌을때 
 	        if(GCMIntentService.checkMatchReGCM == true && !GCMIntentService.matchUpEmail.equals(""))
 	        {
@@ -216,6 +230,14 @@ public class MainActivity extends BaseActivity implements HttpClientNet.OnRespon
 				SAPService.SAPWalkAction = false;
 				Log.d("onResume", "SAPWalkAction in ");
 				setWalkUi();
+				if (sp.getBoolean("match_ing", false))
+				{
+					if (!sp.getString("email", "").equals("")) //상대가 있을때 리쥼타면 무조건 웨이크업
+					{
+						Log.d("onResume", "SAPWalkAction in -> requestWalkUp in ");
+						requestWalkUp();
+					}
+				}
 				
 			}
 
@@ -250,6 +272,21 @@ public class MainActivity extends BaseActivity implements HttpClientNet.OnRespon
 		loginService.doAsyncExecute(this);
 		startProgressDialog();
     }
+    public void requestGcm(int num) // 메세지 날리는거
+	{
+		GregorianCalendar calendar = new GregorianCalendar();
+		HttpClientNet loginService = new HttpClientNet(ServiceType.MSG_GCM_GO_MESSAGE);
+		ArrayList<Params> loginParams = new ArrayList<Params>();
+		Log.d("my",LoginObject.getInstance().getEmail());
+		Log.d("fri",fri_email);
+		loginParams.add(new Params("name", ""));
+		loginParams.add(new Params("my_email", LoginObject.getInstance().getEmail()));
+		loginParams.add(new Params("fri_email", fri_email));
+		loginParams.add(new Params("sendname",num+""));
+		loginService.setParam(loginParams);
+		loginService.doAsyncExecute(this);
+		startProgressDialog();
+	}	
     public void setUi()
     {
     	btn_message = (RelativeLayout)findViewById(R.id.btn_chat);

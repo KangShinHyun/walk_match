@@ -218,14 +218,23 @@ public class SAPServiceProvider extends SAAgent implements  HttpClientNet.OnResp
 	    		   if(num==0)
 	    		   {
 	    			   //»ñ´ëÁú
+	    			   Intent intent = new Intent(SAPServiceProvider.this,SAPReceiver.class);
+	    	      	   intent.putExtra("flag", 3); 
+	    	      	   sendBroadcast(intent);
 	    		   }
 	    		   else if(num==1)
 	    		   {
 	    			   //¸Þ·Õ
+	    			   Intent intent = new Intent(SAPServiceProvider.this,SAPReceiver.class);
+	    	      	   intent.putExtra("flag", 4); 
+	    	      	   sendBroadcast(intent);
 	    		   }
 	    		   else if(num==2)
 	    		   {
 	    			   //3¸í
+	    			   Intent intent = new Intent(SAPServiceProvider.this,SAPReceiver.class);
+	    	      	   intent.putExtra("flag", 5); 
+	    	      	   sendBroadcast(intent);
 	    		   }
 	    	   }
 	       }
