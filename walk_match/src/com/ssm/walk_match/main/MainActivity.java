@@ -209,6 +209,7 @@ public class MainActivity extends BaseActivity implements HttpClientNet.OnRespon
 	        	GCMIntentService.receiveGiveUp = false;
 	        	WinPopup o = new WinPopup(mContext,"",handler_win);
 	        	requestMatchGcmWin(fri_email);
+	        	cancel();
 	        }
 	        else if (sp.getBoolean("match_ing", false))
 			{
