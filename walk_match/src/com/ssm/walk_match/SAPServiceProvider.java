@@ -116,17 +116,22 @@ public class SAPServiceProvider extends SAAgent implements  HttpClientNet.OnResp
         	   //나한테 오는 정보 
 	    	   //내 프리퍼런스 걸음수 +1;
         	   Log.i("zz", "워크하나증가");
-        	   SharedPreferences sp2 = getSharedPreferences("gearinfo",MODE_PRIVATE);
-        	   int mewalk = sp2.getInt("mewalk", 0);
-      		   
-      		   SharedPreferences.Editor editer2 = sp2.edit();
-      		   Log.i("mewalk",mewalk+"");
-      		   editer2.putInt("mewalk",(mewalk+1));
-      		   editer2.commit();
-      		   
-
-	      	   Intent intent = new Intent("SAPWalkAction");
-	      	   sendBroadcast(intent);
+        	   SharedPreferences sp = getSharedPreferences("match_ing",MODE_PRIVATE);
+        	   boolean match_ing = sp.getBoolean("match_ing", false);
+	       	   if(match_ing)
+	       	   {
+	        	   SharedPreferences sp2 = getSharedPreferences("gearinfo",MODE_PRIVATE);
+	        	   int mewalk = sp2.getInt("mewalk", 0);
+	      		   
+	      		   SharedPreferences.Editor editer2 = sp2.edit();
+	      		   Log.i("mewalk",mewalk+"");
+	      		   editer2.putInt("mewalk",(mewalk+1));
+	      		   editer2.commit();
+	      		   
+	
+		      	   Intent intent = new Intent("SAPWalkAction");
+		      	   sendBroadcast(intent);
+	       	   }
 	       }
            else if(strToUpdateUI.equals("match"))
            {
@@ -138,20 +143,25 @@ public class SAPServiceProvider extends SAAgent implements  HttpClientNet.OnResp
 	    	   try {
           		 //서버통신 
           		 //매치중 아니면 0 을 넣으면됨
-          		 SharedPreferences sp2 = getSharedPreferences("gearinfo",MODE_PRIVATE);
-          		 int mewalk = sp2.getInt("mewalk", 0);
-          		 int youwalk = sp2.getInt("youwalk", 0);
-          		 String mename = sp2.getString("mename", "");
-          		 String youname = sp2.getString("youname", "");
-          		 String youemail = sp2.getString("youemail", "");
-          		 
-          		 HttpClientNet loginService = new HttpClientNet(ServiceType.MSG_GEAR_STEP);
-      	  		 ArrayList<Params> loginParams = new ArrayList<Params>();
-      	  		 loginParams.add(new Params("my_email", LoginObject.getInstance().getEmail()));
-      	  		 loginParams.add(new Params("fri_email", youemail));
-      	  		
-      	  		 loginService.setParam(loginParams);
-      	  		 loginService.doAsyncExecute(SAPServiceProvider.this);
+    		     SharedPreferences sp = getSharedPreferences("match_ing",MODE_PRIVATE);
+        	     boolean match_ing = sp.getBoolean("match_ing", false);
+	       	     if(match_ing)
+	       	     {  
+	          		 SharedPreferences sp2 = getSharedPreferences("gearinfo",MODE_PRIVATE);
+	          		 int mewalk = sp2.getInt("mewalk", 0);
+	          		 int youwalk = sp2.getInt("youwalk", 0);
+	          		 String mename = sp2.getString("mename", "");
+	          		 String youname = sp2.getString("youname", "");
+	          		 String youemail = sp2.getString("youemail", "");
+	          		 
+	          		 HttpClientNet loginService = new HttpClientNet(ServiceType.MSG_GEAR_STEP);
+	      	  		 ArrayList<Params> loginParams = new ArrayList<Params>();
+	      	  		 loginParams.add(new Params("my_email", LoginObject.getInstance().getEmail()));
+	      	  		 loginParams.add(new Params("fri_email", youemail));
+	      	  		
+	      	  		 loginService.setParam(loginParams);
+	      	  		 loginService.doAsyncExecute(SAPServiceProvider.this);
+	       	     }
 	    	   }
 	    	   catch (Exception e1) {
 	     			// TODO Auto-generated catch block

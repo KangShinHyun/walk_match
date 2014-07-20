@@ -1,9 +1,17 @@
 package com.ssm.walk_match;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.List;
+
+import android.app.ActivityManager;
+import android.app.ActivityManager.RunningTaskInfo;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.app.Service;
+import android.content.Context;
+import android.content.Intent;
+import android.os.IBinder;
+import android.util.Log;
 
 import com.ssm.walk_match.main.BaseActivity;
 import com.ssm.walk_match.main.FirstActivity;
@@ -14,18 +22,6 @@ import com.ssm.walk_match.main.MessageActivity;
 import com.ssm.walk_match.main.RankActivity;
 import com.ssm.walk_match.main.SignActivity;
 import com.ssm.walk_match.util.AppManager;
-
-import android.app.ActivityManager;
-import android.app.AlarmManager;
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.app.Service;
-import android.app.ActivityManager.RunningTaskInfo;
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.IBinder;
 
 public class SAPService extends Service
 {
@@ -91,6 +87,7 @@ public class SAPService extends Service
 	public void onStart(Intent intent, int startId)
 	{
 		super.onStart(intent, startId);
+		Log.d("SAPService","SAPService in");
 		SAPWalkAction = true;
 		if(isActivityTop())
 		{
