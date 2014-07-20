@@ -151,8 +151,10 @@ public class MeHistoryListView extends ListView  {
 				holder.time .setText(object.getTime());
 				holder.resultimg.setBackgroundResource(R.drawable.match_down_win);
 				holder.stepTxt .setText(object.getStep1());
-				holder.myNationImg.setBackgroundResource(nation_img[Integer.parseInt(object.getNation1())]);
-				holder.friNationImg.setBackgroundResource(nation_img[Integer.parseInt(object.getNation2())]);
+				if(object.getNation1() != null || !object.getNation1().equals(""))
+					holder.myNationImg.setBackgroundResource(nation_img[Integer.parseInt(object.getNation1())]);
+				if(object.getNation2() != null || !object.getNation2().equals(""))
+					holder.friNationImg.setBackgroundResource(nation_img[Integer.parseInt(object.getNation2())]);
 				holder.friStepTxt.setText(object.getStep2());
 				holder.friNameTxt.setText(object.getName2());
 			}
@@ -161,8 +163,10 @@ public class MeHistoryListView extends ListView  {
 				holder.time .setText(object.getTime());
 				holder.resultimg.setBackgroundResource(R.drawable.match_down_lose);
 				holder.stepTxt .setText(object.getStep2());
-				holder.myNationImg.setBackgroundResource(nation_img[Integer.parseInt(object.getNation2())]);
-				holder.friNationImg.setBackgroundResource(nation_img[Integer.parseInt(object.getNation1())]);
+				if(object.getNation1() != null || !object.getNation1().equals(""))
+					holder.myNationImg.setBackgroundResource(nation_img[Integer.parseInt(object.getNation2())]);
+				if(object.getNation2() != null || !object.getNation2().equals(""))
+					holder.friNationImg.setBackgroundResource(nation_img[Integer.parseInt(object.getNation1())]);
 				holder.friStepTxt.setText(object.getStep1());
 				holder.friNameTxt.setText(object.getName1());
 			}
