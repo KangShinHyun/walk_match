@@ -75,6 +75,8 @@ public class MeActivity extends BaseActivity implements HttpClientNet.OnResponse
 	private TextView mFriNameTxt;
 	private ImageView mFriNationImg;
 	private TextView mTime;
+	private LinearLayout mLayoutWiner;
+	private LinearLayout mLayoutLose;
 	private int[] nation_img = {R.drawable.australia,R.drawable.austria,R.drawable.belgium,R.drawable.brazil
 			,R.drawable.canada,R.drawable.china,R.drawable.czechrepublic,R.drawable.denmark
 			,R.drawable.finland,R.drawable.france,R.drawable.germany,R.drawable.greece,R.drawable.hongkong
@@ -159,6 +161,8 @@ public class MeActivity extends BaseActivity implements HttpClientNet.OnResponse
 		mFriNameTxt = (TextView) findViewById(R.id.fri_name);
 		mFriNationImg = (ImageView) findViewById(R.id.fri_img_nation);
 		mTime = (TextView)findViewById(R.id.match_time_txt);
+		mLayoutWiner = (LinearLayout)findViewById(R.id.layout_me_win_text);
+		mLayoutLose = (LinearLayout)findViewById(R.id.layout_me_lose_text);
 		mBtnFacebook.setOnClickListener(this);
 		mBtnHistory.setOnClickListener(this);
 		mBtnBadge.setOnClickListener(this);
@@ -241,30 +245,31 @@ public class MeActivity extends BaseActivity implements HttpClientNet.OnResponse
 			}
 			case R.id.btn_badge:
 			{
-				if(!check_btn)
-				{
-//					if(rankFriendListView != null)
-//					{
-//						rank_list_view.removeAllViews();
-//						rankFriendListView.notifyData();
-//						rank_list_view.addView(rankFriendListView);
-//					}
-//					else
-//					{
-//						rank_list_view.removeAllViews();
-//						rankFriendListView = new RankFriendListView(this);
-//						ArrayList<RankObject> o = new ArrayList<RankObject>();
-//						o.add(new RankObject("1","1","http://postfiles1.naver.net/20140701_112/loveteen2424_1404221461533XTtHc_JPEG/large_%2811%29.jpg?type=w2","강신현","100","98","100","http://postfiles1.naver.net/20140701_112/loveteen2424_1404221461533XTtHc_JPEG/large_%2811%29.jpg?type=w2"));
-//						
-//						rankFriendListView.setData(o);
-//						rank_list_view.addView(rankFriendListView);
-//					}
-					mBtnHistory.setBackgroundResource(R.drawable.bttn_history_back_0);
-					mBtnBadge.setBackgroundResource(R.drawable.bttn_badge_back_1);
-					mTxtHistory.setBackgroundResource(R.drawable.bttn_history_text_0);
-					//mTxtBadge.setBackgroundResource(R.drawable.bttn_badge_back_1);
-					check_btn = true;
-				}
+				Toast.makeText(this, "Expect the next version", Toast.LENGTH_LONG).show();
+//				if(!check_btn)
+//				{
+////					if(rankFriendListView != null)
+////					{
+////						rank_list_view.removeAllViews();
+////						rankFriendListView.notifyData();
+////						rank_list_view.addView(rankFriendListView);
+////					}
+////					else
+////					{
+////						rank_list_view.removeAllViews();
+////						rankFriendListView = new RankFriendListView(this);
+////						ArrayList<RankObject> o = new ArrayList<RankObject>();
+////						o.add(new RankObject("1","1","http://postfiles1.naver.net/20140701_112/loveteen2424_1404221461533XTtHc_JPEG/large_%2811%29.jpg?type=w2","강신현","100","98","100","http://postfiles1.naver.net/20140701_112/loveteen2424_1404221461533XTtHc_JPEG/large_%2811%29.jpg?type=w2"));
+////						
+////						rankFriendListView.setData(o);
+////						rank_list_view.addView(rankFriendListView);
+////					}
+//					mBtnHistory.setBackgroundResource(R.drawable.bttn_history_back_0);
+//					mBtnBadge.setBackgroundResource(R.drawable.bttn_badge_back_1);
+//					mTxtHistory.setBackgroundResource(R.drawable.bttn_history_text_0);
+//					//mTxtBadge.setBackgroundResource(R.drawable.bttn_badge_back_1);
+//					check_btn = true;
+//				}
 				break;
 			}
 
@@ -324,8 +329,22 @@ public class MeActivity extends BaseActivity implements HttpClientNet.OnResponse
 				}
 				int win = LoginObject.getInstance().getVictory();
 				int lose = listObject.size() - LoginObject.getInstance().getVictory();
-				mTxtWin.setText(win+"");
-				mTxtLose.setText(lose+"");
+				
+				if(win > lose)
+				{
+				}
+				else if( win < lose)
+				{
+//					mLayoutWiner.setWeightSum(0.3f);
+//					mLayoutLose.setWeightSum(0.7f);
+				}
+				else
+				{
+//					mLayoutWiner.setWeightSum(0.5f);
+//					mLayoutLose.setWeightSum(0.5f);
+				}
+				mTxtWin.setText(win+" win");
+				mTxtLose.setText(lose+" lose");
 				if(meHisoryListView == null)
 				{
 					listSort();

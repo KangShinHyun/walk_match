@@ -144,15 +144,15 @@ public class BaseActivity extends Activity implements View.OnClickListener{
 			}
 			case R.id.btn_ranking:
 			{
-				Toast.makeText(this, "Expect the next version", Toast.LENGTH_LONG).show();
-//				if(activity_num != RANKING_ACTIVITY)
-//				{
-//					Intent intent =  new Intent(this.getApplicationContext(), RankActivity.class);
-//					startActivity(intent);
-//					overridePendingTransition(0,0);
-//					finish();
-//				}
-//				activity_num = RANKING_ACTIVITY;
+				//Toast.makeText(this, "Expect the next version", Toast.LENGTH_LONG).show();
+				if(activity_num != RANKING_ACTIVITY)
+				{
+					Intent intent =  new Intent(this.getApplicationContext(), RankActivity.class);
+					startActivity(intent);
+					overridePendingTransition(0,0);
+					finish();
+				}
+				activity_num = RANKING_ACTIVITY;
 				break;
 			}
 		}

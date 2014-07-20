@@ -202,7 +202,7 @@
 			    	</LinearLayout>
 			    	<LinearLayout
 			    	    android:layout_width="match_parent"
-			    	    android:layout_height="50dip"
+			    	    android:layout_height="70dip"
 			    	    android:orientation="vertical">
 			    	    <TextView
 			    	        android:layout_width="wrap_content"
@@ -213,24 +213,43 @@
 			    	        android:layout_marginLeft="15dip"/>
 			    	    <LinearLayout
 			    	        android:layout_width="match_parent"
-			    	        android:layout_height="30dip"
+			    	        android:layout_height="50dip"
 			    	        android:orientation="horizontal"
-			    	        android:gravity="center">
-			    	        <TextView 
-				    	        android:id="@+id/win_text"
-				    	        android:layout_width="wrap_content"
-				    	        android:layout_height="wrap_content"
-				    	        android:text="6 win"
-				    	        android:textColor="#ffffff"
-				    	        android:textSize="14dip"
-				    	        android:layout_marginRight="15dip"/>
-				    	    <TextView 
-				    	        android:id="@+id/lose_text"
-				    	        android:layout_width="wrap_content"
-				    	        android:layout_height="wrap_content"
-				    	        android:text="4 lose"
-				    	        android:textColor="#ffffff"
-				    	        android:textSize="14dip"/>
+			    	        android:gravity="center"
+			    	        android:layout_marginLeft="15dip"
+			    	        android:layout_marginRight="15dip">
+				   		     <LinearLayout
+				   		         android:id="@+id/layout_me_win_text"
+				   		         android:layout_width="0dip"
+				   		         android:layout_height="30dip"
+				   		         android:orientation="vertical"
+				   		         android:layout_weight="0.5"
+				   		         android:gravity="center"
+				   		         android:background="@drawable/victory_analysis_win">
+				   		          <TextView 
+					    	        android:id="@+id/win_text"
+					    	        android:layout_width="wrap_content"
+					    	        android:layout_height="wrap_content"
+					    	        android:text=""
+					    	        android:textColor="#ffffff"
+					    	        android:textSize="14dip"/>
+				   		     </LinearLayout>
+			    	        <LinearLayout
+				   		         android:id="@+id/layout_me_lose_text"
+				   		         android:layout_width="0dip"
+				   		         android:layout_height="30dip"
+				   		         android:orientation="vertical"
+				   		         android:layout_weight="0.5"
+				   		         android:gravity="center"
+				   		         android:background="@drawable/victory_analysis_lose">
+					    	    <TextView 
+					    	        android:id="@+id/lose_text"
+					    	        android:layout_width="wrap_content"
+					    	        android:layout_height="wrap_content"
+					    	        android:text=""
+					    	        android:textColor="#ffffff"
+					    	        android:textSize="14dip"/>
+				    	    </LinearLayout>
 			    	    </LinearLayout>
 			    	    
 			    	</LinearLayout>
@@ -241,6 +260,7 @@
 			    	        android:textSize="16dip"
 			    	        android:textColor="#ffffff"
 			    	        android:layout_marginBottom="10dip"
+			    	        android:layout_marginTop="10dip"
 			    	        android:layout_marginLeft="15dip"/>
 			    	<RelativeLayout 
 			    	    android:id="@+id/live_no_tab"
@@ -263,7 +283,7 @@
 				 	            android:id="@+id/match_time_txt"
 				 	            android:layout_width="wrap_content"
 				 	            android:layout_height="wrap_content"
-				 	            android:text="2014. 4. 3"
+				 	            android:text=""
 				 	            android:textSize="16dip"
 				 	            android:textColor="#ffffff"
 				 	            android:textStyle="bold"
@@ -294,7 +314,7 @@
 				 	        	    android:id="@+id/me_step"
 				 	        	    android:layout_width="wrap_content"
 				 	        	    android:layout_height="wrap_content"
-				 	        	    android:text="1200"
+				 	        	    android:text=""
 				 	        	    android:textColor="#ffffff"
 				 	        	    android:textSize="18dip"
 				 	        	    android:textStyle="bold"/>
@@ -338,7 +358,7 @@
 				 	        	    android:id="@+id/fri_step"
 				 	        	    android:layout_width="wrap_content"
 				 	        	    android:layout_height="wrap_content"
-				 	        	    android:text="1200"
+				 	        	    android:text=""
 				 	        	    android:textColor="#ffffff"
 				 	        	    android:textSize="18dip"
 				 	        	    android:textStyle="bold"/>
@@ -346,7 +366,7 @@
 				 	        	    android:id="@+id/fri_name"
 				 	        	    android:layout_width="wrap_content"
 				 	        	    android:layout_height="wrap_content"
-				 	        	    android:text="Sock"
+				 	        	    android:text=""
 				 	        	    android:textColor="#ffffff"
 				 	        	    android:textSize="12dip"
 				 	        	    android:textStyle="bold"/>

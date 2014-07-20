@@ -187,7 +187,8 @@ public class LoginActivity extends Activity implements View.OnClickListener, Htt
 					String friend = object.getJSONObject("data").optString("friend","");
 					String victory = object.getJSONObject("data").optString("victory","");
 					String worldNum = object.getJSONObject("data").optString("worldNum","");
-					LoginObject.getInstance().setLogin(name,email,img,Integer.parseInt(nation),pwd,Integer.parseInt(friend),Integer.parseInt(victory),Integer.parseInt(worldNum));
+					int match = object.getJSONObject("data").optInt("match",0);
+					LoginObject.getInstance().setLogin(name,email,img,Integer.parseInt(nation),pwd,Integer.parseInt(friend),Integer.parseInt(victory),Integer.parseInt(worldNum),match);
 					Intent intent =  new Intent(this.getApplicationContext(), MainActivity.class);
 					startActivity(intent);
 					overridePendingTransition(0,0);

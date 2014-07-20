@@ -22,6 +22,7 @@ public class ServiceType {
     public static final int MSG_GEAR_STEP = 14;
     public static final int MSG_WALK_UP = 15;
     public static final int MSG_HISTORY = 16;
+    public static final int MSG_WORLD_RANK = 17;
 
     private static final String URL_LOGIN 				 = 	 ROOT_DOMAIN + "login.php";
     private static final String URL_JOIN 				 =   ROOT_DOMAIN + "join.php";
@@ -39,6 +40,7 @@ public class ServiceType {
     private static final String URL_GEAR_STEP			 = 	 ROOT_DOMAIN + "gear_step.php";
     private static final String URL_WALK_UP 			 = 	 ROOT_DOMAIN + "walk_up.php";
     private static final String URL_HISTORY				 = 	 ROOT_DOMAIN + "history.php";
+    private static final String URL_WORLD_RANK			 = 	 ROOT_DOMAIN + "world_rank.php";
     private Hashtable<Integer, String> msgURLTbl = new Hashtable<Integer, String>();
 
     private static ServiceType msgState = new ServiceType();
@@ -60,6 +62,7 @@ public class ServiceType {
         msgURLTbl.put(new Integer(MSG_GEAR_STEP), URL_GEAR_STEP);
         msgURLTbl.put(new Integer(MSG_WALK_UP), URL_WALK_UP);
         msgURLTbl.put(new Integer(MSG_HISTORY), URL_HISTORY);
+        msgURLTbl.put(new Integer(MSG_WORLD_RANK), URL_WORLD_RANK);
     }
 
     public static ServiceType getInstance() {

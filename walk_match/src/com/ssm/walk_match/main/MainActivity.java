@@ -222,9 +222,10 @@ public class MainActivity extends BaseActivity implements HttpClientNet.OnRespon
 	        //사프 액션이올때
 			if(SAPService.SAPWalkAction == true)
 			{
+				SAPService.SAPWalkAction = false;
 				Log.d("onResume", "SAPWalkAction in ");
 				setWalkUi();
-				SAPService.SAPWalkAction = false;
+				
 			}
         }
 	    
@@ -494,6 +495,7 @@ public class MainActivity extends BaseActivity implements HttpClientNet.OnRespon
    		loginParams.add(new Params("my_nation", LoginObject.getInstance().getNation()+""));
    		loginParams.add(new Params("fri_nation", fri_nation+""));
    		loginParams.add(new Params("victory", (LoginObject.getInstance().getVictory()+1)+""));
+  		loginParams.add(new Params("my_match", (LoginObject.getInstance().getMatch()+1)+""));
    		loginParams.add(new Params("winner_step", winner_step));
    		loginParams.add(new Params("lose_step", lose_step));
    		winner_step = "0";
@@ -561,6 +563,7 @@ public class MainActivity extends BaseActivity implements HttpClientNet.OnRespon
 		mLayoutDday.setVisibility(View.GONE);
 		mBtnGiveUp.setVisibility(View.GONE);
 		mTxtMyVictory.setText((LoginObject.getInstance().getVictory()+1)+"");
+		LoginObject.getInstance().setMatch((LoginObject.getInstance().getMatch()+1));
 		LoginObject.getInstance().setVictory((LoginObject.getInstance().getVictory()+1));
 		SharedPreferences sp = getSharedPreferences("match_ing",MODE_PRIVATE);
 		SharedPreferences.Editor editer = sp.edit();
@@ -592,6 +595,7 @@ public class MainActivity extends BaseActivity implements HttpClientNet.OnRespon
 		layoutMatchStart.setVisibility(View.GONE);
 		mLayoutDday.setVisibility(View.GONE);
 		mBtnGiveUp.setVisibility(View.GONE);
+		LoginObject.getInstance().setMatch((LoginObject.getInstance().getMatch()+1));
 		SharedPreferences sp = getSharedPreferences("match_ing",MODE_PRIVATE);
 		SharedPreferences.Editor editer = sp.edit();
 		editer.putBoolean("match_ing", false);

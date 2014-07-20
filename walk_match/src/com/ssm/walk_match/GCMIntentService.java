@@ -250,7 +250,17 @@ public class GCMIntentService extends GCMBaseIntentService {
 			String value = null;
 			String key = "msg";
 			value = b.get(key).toString();
+			
 			receiveGiveUp = true;
+			String winner_step = null;
+			String key2 = "winner_step";
+			winner_step = b.get(key2).toString();
+			String lose_step = null;
+			String key3 = "lose_step";
+			lose_step = b.get(key3).toString();
+			MainActivity.winner_step = winner_step;
+			MainActivity.lose_step = lose_step;
+			
 			if(isActivityTop())
 			{
 				

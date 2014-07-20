@@ -13,6 +13,7 @@ public class LoginObject {
 	private int friend = 0;
 	private int victory = 0;
 	private int worldNum = 0;
+	private int match = 0;
 	private static LoginObject object = new LoginObject();
 	private LoginObject()
 	{
@@ -29,6 +30,7 @@ public class LoginObject {
 		this.img = img;
 		this.nation = nation;
 	}
+	
 	public static LoginObject getInstance()
 	{
 		return object;
@@ -83,6 +85,13 @@ public class LoginObject {
 	public void setWorldNum(int worldNum) {
 		this.worldNum = worldNum;
 	}
+	
+	public int getMatch() {
+		return match;
+	}
+	public void setMatch(int match) {
+		this.match = match;
+	}
 	public boolean isLogin()
 	{
 		if(this.email == null || this.email.equals(""))
@@ -135,7 +144,19 @@ public class LoginObject {
 		this.victory = victory;
 		this.worldNum = worldNum;
 	}
-	
+	public void setLogin(String name,String email, String img, int nation,String pwd,int firend, int victory, int worldNum,int match)
+	{
+		this.email = email;
+		this.img = img;
+		this.nation = nation;
+		this.name = name;
+		checkLogin = true;
+		this.pwd  = pwd;
+		this.friend = friend;
+		this.victory = victory;
+		this.worldNum = worldNum;
+		this.match = match;
+	}
 	public void setLogout()
 	{
 		this.email = "";
@@ -147,6 +168,7 @@ public class LoginObject {
 		this.friend = 0;
 		this.victory = 0;
 		this.worldNum = 0;
+		this.match = 0;
 	}
 
 }

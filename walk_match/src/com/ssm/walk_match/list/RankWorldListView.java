@@ -33,6 +33,14 @@ public class RankWorldListView extends ListView  {
 	private AsyncImageLoader m_oAsyncImageLoader = new AsyncImageLoader();
 	private Handler m_oHandler ;
 	private ArrayList<RankObject> RankWorldList;
+	private int[] nation_img = {R.drawable.australia,R.drawable.austria,R.drawable.belgium,R.drawable.brazil
+			,R.drawable.canada,R.drawable.china,R.drawable.czechrepublic,R.drawable.denmark
+			,R.drawable.finland,R.drawable.france,R.drawable.germany,R.drawable.greece,R.drawable.hongkong
+			,R.drawable.hungary,R.drawable.iceland,R.drawable.india,R.drawable.indonesia,R.drawable.italy
+			,R.drawable.korea,R.drawable.japan,R.drawable.malaysia,R.drawable.mexico,R.drawable.netherland
+			,R.drawable.newzeland,R.drawable.norway,R.drawable.poland,R.drawable.portugal,R.drawable.russia
+			,R.drawable.saudiarabia,R.drawable.singapore,R.drawable.spain,R.drawable.sweden,R.drawable.switzerland
+			,R.drawable.thailand,R.drawable.uae,R.drawable.unitedkingdom,R.drawable.unitedstatesofamerica,R.drawable.vietnam};
 	public RankWorldListView(Context context) {
 		super(context);
 		mContext = context;
@@ -120,18 +128,30 @@ public class RankWorldListView extends ListView  {
 			} else {
 				holder = (ViewHolder) convertView.getTag();
 			}
-			
+			try{
 			convertView.setTag(R.id.imageId, position);
 			holder.layout.setTag(R.id.imageId, position);
 			RankObject object = getItem(position);
-			m_oAsyncImageLoader.setImageDrawableAsync(holder.img,object.getImg(),getResources().getDrawable(R.drawable.message_picture), getResources().getDrawable(R.drawable.message_picture), mContext);
-			m_oAsyncImageLoader.setImageDrawableAsync(holder.cuture_img,object.getCulture_img(),getResources().getDrawable(R.drawable.message_picture), getResources().getDrawable(R.drawable.message_picture), mContext);
-			holder.rank_txt.setText(object.getWorld_num());
+			m_oAsyncImageLoader.setImageDrawableAsync(holder.img,object.getImg(),getResources().getDrawable(R.drawable.cp_picture), getResources().getDrawable(R.drawable.cp_picture), mContext);
+			holder.cuture_img.setBackgroundResource(nation_img[object.getNation()]);
+			holder.rank_txt.setText(object.getWorld_num()+"");
 			holder.name_txt.setText(object.getName());
-			holder.percent_txt.setText(object.getPercent());
-			holder.win_txt.setText(object.getWin());
-			holder.match_txt.setText(object.getMatch());
-			
+			if(object.getMatch() == 0)
+			{
+				holder.percent_txt.setText("0");
+			}
+			else
+			{
+				double data = (double)object.getWin() / (double)object.getMatch() * 100;
+				holder.percent_txt.setText( String.format("%.1f", data));
+			}
+			holder.win_txt.setText(object.getWin()+"");
+			holder.match_txt.setText((object.getMatch()-object.getWin())+"");
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
+			}
 			holder.layout.setOnClickListener(new OnClickListener() {
 				
 				@Override
