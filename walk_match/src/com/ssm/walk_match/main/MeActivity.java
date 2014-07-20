@@ -324,8 +324,8 @@ public class MeActivity extends BaseActivity implements HttpClientNet.OnResponse
 				}
 				int win = LoginObject.getInstance().getVictory();
 				int lose = listObject.size() - LoginObject.getInstance().getVictory();
-				mTxtWin.setText(win);
-				mTxtLose.setText(lose);
+				mTxtWin.setText(win+"");
+				mTxtLose.setText(lose+"");
 				if(meHisoryListView == null)
 				{
 					listSort();
