@@ -271,7 +271,33 @@ public class MeActivity extends BaseActivity implements HttpClientNet.OnResponse
 		}
 	
 	}
-	
+	public void listSort()
+	{
+		for(int i = 0 ; i < listObject.size() - 1; i++)
+		{
+			for(int j = i+1 ; j < listObject.size() ; j++)
+			{
+				GregorianCalendar first ;
+				String time[] = listObject.get(i).getTime().split(". ");
+				int year = Integer.parseInt(time[0]);
+				int month = (Integer.parseInt(time[1]));
+				int date = Integer.parseInt(time[2]);
+				first = new GregorianCalendar(year, month,date);
+				GregorianCalendar  two;
+				String time2[] = listObject.get(j).getTime().split(". ");
+				int year2 = Integer.parseInt(time2[0]);
+				int month2 = (Integer.parseInt(time2[1]));
+				int date2 = Integer.parseInt(time2[2]);
+				two = new GregorianCalendar(year2, month2,date2);
+				if(first.before(two))
+				{
+					HistoryObject o = listObject.get(i);
+					listObject.set(i, listObject.get(j));
+					listObject.set(j, o);
+				}
+			}
+		}
+	}
 	@Override
 	public void onResponseReceived(String resContent) {
 		// TODO Auto-generated method stub
@@ -298,6 +324,7 @@ public class MeActivity extends BaseActivity implements HttpClientNet.OnResponse
 				}
 				if(meHisoryListView == null)
 				{
+					listSort();
 					meHisoryListView = new MeHistoryListView(mContext);
 					meHisoryListView.setData(listObject);
 					mListView.addView(meHisoryListView);
