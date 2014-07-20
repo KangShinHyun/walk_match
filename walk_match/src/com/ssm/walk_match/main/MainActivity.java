@@ -197,10 +197,10 @@ public class MainActivity extends BaseActivity implements HttpClientNet.OnRespon
 	        }
 	        else if(GCMIntentService.whoWin == 0)
 	        {
-	        	//내가이김
+	        	//무승부
 	        	Log.d("onResume", "whoWin in 00");
 	        	GCMIntentService.whoWin = -1;
-	        	setEndGame();
+	        	setEndDrawGame();
 	        }
 	        //상대가 포기했을때
 	        else if(GCMIntentService.receiveGiveUp == true) //상대가 포기했다면!!!
@@ -597,6 +597,37 @@ public class MainActivity extends BaseActivity implements HttpClientNet.OnRespon
 		fri_name ="";
 		fri_nation = 0;
 		cancel();
+	}
+	public void setEndDrawGame()
+	{
+		layoutTopStep.setVisibility(View.GONE);
+		layoutNoMatch.setVisibility(View.VISIBLE);
+		layoutMatchStart.setVisibility(View.GONE);
+		mLayoutDday.setVisibility(View.GONE);
+		mBtnGiveUp.setVisibility(View.GONE);
+		SharedPreferences sp = getSharedPreferences("match_ing",MODE_PRIVATE);
+		SharedPreferences.Editor editer = sp.edit();
+		editer.putBoolean("match_ing", false);
+		//GregorianCalendar calendar = new GregorianCalendar();
+		//String calendarData = calendar.get(Calendar.YEAR)+"/"+calendar.get(Calendar.MONTH)+"/"+calendar.get(Calendar.DATE);
+		editer.putString("email", "");
+		editer.putString("calendar", "");
+		editer.commit();
+		fri_email = "";
+		fri_name ="";
+		fri_nation = 0;
+		SharedPreferences sp2 = getSharedPreferences("gearinfo",MODE_PRIVATE);
+	    SharedPreferences.Editor editer2 = sp2.edit();
+	    editer2.putInt("mewalk",0);
+	    editer2.putInt("youwalk",0);
+	    editer2.putString("youname", "");
+	    editer2.putString("youemail", "");
+	    editer2.commit();
+	    mTxtMyStep.setText("0");
+	    mTxtMyPoint.setText("0");
+	    mTxtFriStep.setText("0");
+	    mTxtFriPoint.setText("0");
+	    cancel();
 	}
 	public void setEndGame()
 	{
