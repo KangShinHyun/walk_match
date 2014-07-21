@@ -27,7 +27,8 @@
    		    android:layout_width="58dip"
    		    android:layout_height="58dip"
    		    android:layout_alignParentRight="true"
-   		    android:layout_alignParentBottom="true">
+   		    android:layout_alignParentBottom="true"
+   		    android:visibility="gone">
    		    <ImageView
    		        android:layout_width="match_parent"
    		        android:layout_height="match_parent"

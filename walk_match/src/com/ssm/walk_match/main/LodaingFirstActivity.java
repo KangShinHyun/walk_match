@@ -2,14 +2,19 @@ package com.ssm.walk_match.main;
 
 import java.util.ArrayList;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.ContactsContract;
 import android.telephony.TelephonyManager;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -22,13 +27,15 @@ import com.ssm.walk_match.R;
 import com.ssm.walk_match.component.LoadingPopup;
 import com.ssm.walk_match.net.HttpClientNet;
 import com.ssm.walk_match.net.Params;
+import com.ssm.walk_match.object.FriendObject;
 import com.ssm.walk_match.object.LoginObject;
+import com.ssm.walk_match.object.RankObject;
 import com.ssm.walk_match.service.ServiceType;
 import com.ssm.walk_match.util.AppManager;
 
 public class LodaingFirstActivity extends Activity implements HttpClientNet.OnResponseListener {
 
-	public static String phone;
+	
 	public static String regId;
     private LoadingPopup loading;
     Handler myHandler = new Handler();
@@ -47,39 +54,14 @@ public class LodaingFirstActivity extends Activity implements HttpClientNet.OnRe
     public View onCreateView(View parent, String name, Context context, AttributeSet attrs) {
         return super.onCreateView(parent, name, context, attrs);
     }
-	 private void registGCM() {
-			GCMRegistrar.checkDevice(this);
-			GCMRegistrar.checkManifest(this);
-
-			regId = GCMRegistrar.getRegistrationId(this);
-
-			if ("".equals(regId)) // 구글 가이드에는 regId.equals("")로 되어 있는데 Exception을
-									// 피하기 위해 수정
-				GCMRegistrar.register(this, GCMIntentService.SEND_ID);
-			else
-				Log.d("==============", regId);
-		}
-	    public void requestLogin(String id, String pwd) {
-			HttpClientNet loginService = new HttpClientNet(ServiceType.MSG_LOGIN);
-			ArrayList<Params> loginParams = new ArrayList<Params>();
-			SharedPreferences sp = getSharedPreferences("autologin", MODE_PRIVATE);
-			SharedPreferences.Editor editer = sp.edit();
-			loginParams.add(new Params("facebook", sp.getBoolean("facebook", false)+""));
-			loginParams.add(new Params("email", id));
-			loginParams.add(new Params("pwd", pwd));
-			loginService.setParam(loginParams);
-			loginService.doAsyncExecute(this);
-			startProgressDialog();
-		}
+	 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.first);
-		TelephonyManager systemService = (TelephonyManager)getSystemService    (Context.TELEPHONY_SERVICE);
-		String PhoneNumber = systemService.getLine1Number();
-		PhoneNumber = PhoneNumber.substring(PhoneNumber.length()-10,PhoneNumber.length());
-		phone="0"+PhoneNumber;
+		
 		registGCM();
+		
 		setUi();
 		AppManager.getInstance().setActivity(this);
 //		 try {
@@ -138,7 +120,31 @@ public class LodaingFirstActivity extends Activity implements HttpClientNet.OnRe
     {
         super.onDestroy();
     }
-    
+    private void registGCM() {
+		GCMRegistrar.checkDevice(this);
+		GCMRegistrar.checkManifest(this);
+
+		regId = GCMRegistrar.getRegistrationId(this);
+
+		if ("".equals(regId)) // 구글 가이드에는 regId.equals("")로 되어 있는데 Exception을
+								// 피하기 위해 수정
+			GCMRegistrar.register(this, GCMIntentService.SEND_ID);
+		else
+			Log.d("==============", regId);
+	}
+    public void requestLogin(String id, String pwd) {
+		HttpClientNet loginService = new HttpClientNet(ServiceType.MSG_LOGIN);
+		ArrayList<Params> loginParams = new ArrayList<Params>();
+		SharedPreferences sp = getSharedPreferences("autologin", MODE_PRIVATE);
+		SharedPreferences.Editor editer = sp.edit();
+		loginParams.add(new Params("facebook", sp.getBoolean("facebook", false)+""));
+		loginParams.add(new Params("email", id));
+		loginParams.add(new Params("pwd", pwd));
+		loginService.setParam(loginParams);
+		loginService.doAsyncExecute(this);
+		startProgressDialog();
+	}
+   
     public void startProgressDialog() 
 	{
 		if( loading == null )
@@ -155,6 +161,7 @@ public class LodaingFirstActivity extends Activity implements HttpClientNet.OnRe
 			loading = null;
 		}
 	}
+	
 	@Override
 	public void onResponseReceived(String resContent) {
 		// TODO Auto-generated method stub
@@ -187,6 +194,7 @@ public class LodaingFirstActivity extends Activity implements HttpClientNet.OnRe
 					Toast.makeText(this, reason, Toast.LENGTH_LONG).show();
 				}
 			}
+			
 		}
 		catch(Exception e )
 		{

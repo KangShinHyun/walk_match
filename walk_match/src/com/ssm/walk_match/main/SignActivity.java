@@ -17,6 +17,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.provider.MediaStore;
+import android.telephony.TelephonyManager;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.View.OnFocusChangeListener;
@@ -177,6 +178,11 @@ public class SignActivity extends Activity implements View.OnClickListener, Http
 		loginParams.add(new Params("pwd", mEditPwd.getText().toString()));
 		loginParams.add(new Params("name", mEditName.getText().toString()));
 		loginParams.add(new Params("nation", nation+""));
+		TelephonyManager systemService = (TelephonyManager)getSystemService    (Context.TELEPHONY_SERVICE);
+		String PhoneNumber = systemService.getLine1Number();
+		PhoneNumber = PhoneNumber.substring(PhoneNumber.length()-10,PhoneNumber.length());
+		String phone="0"+PhoneNumber;
+		loginParams.add(new Params("phone", phone));
 		if(m_oImageCropUri != null)
 		{
 			

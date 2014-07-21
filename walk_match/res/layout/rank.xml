@@ -24,7 +24,8 @@
    		    android:layout_width="58dip"
    		    android:layout_height="58dip"
    		    android:layout_alignParentRight="true"
-   		    android:layout_alignParentBottom="true">
+   		    android:layout_alignParentBottom="true"
+   		    android:visibility="gone">
    		    <ImageView
    		        android:layout_width="match_parent"
    		        android:layout_height="match_parent"
@@ -64,7 +65,8 @@
 	       android:layout_height="70dip"
 	       android:orientation="horizontal"
 	       android:layout_alignParentTop="true"
-	       android:gravity="center">
+	       android:gravity="center"
+	       android:visibility="gone">
 	        <LinearLayout
 	           android:id="@+id/btn_world"
 	           android:layout_width="wrap_content"
@@ -98,7 +100,8 @@
     	    android:layout_width="match_parent"
     	    android:layout_height="match_parent"
     	    android:layout_below="@+id/layout_middle_top"
-    	    android:orientation="vertical"/>
+    	    android:orientation="vertical"
+    	    android:layout_marginTop="10dip"/>
     	<LinearLayout
     	    android:id="@+id/layout_me_content"
     	    android:layout_width="match_parent"

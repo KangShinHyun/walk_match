@@ -21,6 +21,7 @@ public class BaseActivity extends Activity implements View.OnClickListener{
 	public static final int ME_ACTIVITY = 3;
 	public static final int RANKING_ACTIVITY = 4;
 	public static final int MESSAGE_ACTIVITY = 5;
+	public static final int FRIEND_INFO_ACTIVITY = 6;
 	public static int activity_num = MAIN_ACTIVITY; 
 	@Override
     public View onCreateView(View parent, String name, Context context, AttributeSet attrs) {

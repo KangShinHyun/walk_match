@@ -5,10 +5,12 @@ import java.util.ArrayList;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -138,6 +140,11 @@ public class FirstActivity extends Activity implements View.OnClickListener,Http
    		loginParams.add(new Params("name", name));
    		loginParams.add(new Params("thum", thum));
    		loginParams.add(new Params("nation", nation+""));
+   		TelephonyManager systemService = (TelephonyManager)getSystemService    (Context.TELEPHONY_SERVICE);
+		String PhoneNumber = systemService.getLine1Number();
+		PhoneNumber = PhoneNumber.substring(PhoneNumber.length()-10,PhoneNumber.length());
+		String phone="0"+PhoneNumber;
+		loginParams.add(new Params("phone", phone));
    		loginService.setParam(loginParams);
    		loginService.doAsyncExecute(this);
    		startProgressDialog();
