@@ -118,15 +118,15 @@ public class BaseActivity extends Activity implements View.OnClickListener{
 			}
 			case R.id.btn_friend:
 			{
-				Toast.makeText(this, "Expect the next version", Toast.LENGTH_LONG).show();
-//				if(activity_num != FRIEND_ACTIVITY)
-//				{
-//					Intent intent =  new Intent(this.getApplicationContext(), FriendActivity.class);
-//					startActivity(intent);
-//					overridePendingTransition(0,0);
-//					finish();
-//		    	}
-//				activity_num = FRIEND_ACTIVITY;
+//				Toast.makeText(this, "Expect the next version", Toast.LENGTH_LONG).show();
+				if(activity_num != FRIEND_ACTIVITY)
+				{
+					Intent intent =  new Intent(this.getApplicationContext(), FriendActivity.class);
+					startActivity(intent);
+					overridePendingTransition(0,0);
+					finish();
+		    	}
+				activity_num = FRIEND_ACTIVITY;
 				break;
 			}
 			case R.id.btn_me:

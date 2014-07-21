@@ -54,7 +54,6 @@ public class NationSelectPopup extends LinearLayout implements View.OnClickListe
 	private LinearLayout m37;
 	private LinearLayout m38;
 	
-	private LinearLayout btnCancel;
 	private LinearLayout btnOk;
 	
 	private int[] nation_id = {R.id.nation_1,R.id.nation_2,R.id.nation_3,R.id.nation_4,R.id.nation_5,R.id.nation_6,R.id.nation_7,R.id.nation_8,
@@ -170,9 +169,7 @@ public class NationSelectPopup extends LinearLayout implements View.OnClickListe
 		m37.setOnClickListener(this);
 		m38.setOnClickListener(this);
 		
-		btnCancel = (LinearLayout)v.findViewById(R.id.canel_btn);
 		btnOk = (LinearLayout)v.findViewById(R.id.select_btn);
-		btnCancel.setOnClickListener(this);
 		btnOk.setOnClickListener(this);
 		show();
 		
@@ -184,11 +181,7 @@ public class NationSelectPopup extends LinearLayout implements View.OnClickListe
 	@Override
 	public void onClick(View vv) {
 		// TODO Auto-generated method stub
-		if(vv.getId() == R.id.canel_btn)
-		{
-			dismissPopup();
-		}
-		else if(vv.getId() == R.id.select_btn)
+		 if(vv.getId() == R.id.select_btn)
 		{
 			int i = 0;
 			for( i = 0 ; i < nation_id.length ;i++)

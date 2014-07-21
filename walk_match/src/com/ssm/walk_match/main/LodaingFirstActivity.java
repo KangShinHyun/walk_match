@@ -10,11 +10,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.telephony.TelephonyManager;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.google.android.gcm.GCMRegistrar;
@@ -29,7 +28,7 @@ import com.ssm.walk_match.util.AppManager;
 
 public class LodaingFirstActivity extends Activity implements HttpClientNet.OnResponseListener {
 
-
+	public static String phone;
 	public static String regId;
     private LoadingPopup loading;
     Handler myHandler = new Handler();
@@ -76,10 +75,29 @@ public class LodaingFirstActivity extends Activity implements HttpClientNet.OnRe
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.first);
-
+		TelephonyManager systemService = (TelephonyManager)getSystemService    (Context.TELEPHONY_SERVICE);
+		String PhoneNumber = systemService.getLine1Number();
+		PhoneNumber = PhoneNumber.substring(PhoneNumber.length()-10,PhoneNumber.length());
+		phone="0"+PhoneNumber;
 		registGCM();
 		setUi();
 		AppManager.getInstance().setActivity(this);
+//		 try {
+//		        PackageInfo info = getPackageManager().getPackageInfo(
+//		                "com.ssm.walk_match", 
+//		                PackageManager.GET_SIGNATURES);
+//		        for (Signature signature : info.signatures) {
+//		            MessageDigest md = MessageDigest.getInstance("SHA");
+//		            md.update(signature.toByteArray());
+//		            Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+//		            }
+//		    } catch (NameNotFoundException e) {
+//
+//		    } catch (NoSuchAlgorithmException e) {
+//
+//		    }
+		 
+		 
 	}
     @Override
     protected void onResume() {
