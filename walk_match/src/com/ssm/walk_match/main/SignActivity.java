@@ -57,7 +57,6 @@ public class SignActivity extends Activity implements View.OnClickListener, Http
 	private Handler m_oHandler;
 	private int nation;
 	private Context mContext;
-	private Uri mImageCaptureUri;
 	
 	private static final String TEMP_PHOTO_FILE = "temp.jpg";       // 임시 저장파일
     private static final int REQ_CODE_PICK_IMAGE = 0;
@@ -66,6 +65,26 @@ public class SignActivity extends Activity implements View.OnClickListener, Http
 			,"Finland","France","Germany","Greece","Hong Kong","Hungry","Iceland","India","Indonesia","Italy"
 			,"Korea","Japan","Malaysia","Mexico","Netherland","New Zealand","Norway","Poland","Portugal","Russia"
 			,"Saudi Arabia","Singapore","Spain","Sweden","Switzerland","Thailand","UAE","U.K","USA","Vietnam"};
+	Handler myHandler = new Handler();
+	Runnable myRunnable = new Runnable() {
+    	
+	  	  @Override
+	  	  public void run() {
+	  		String filePath = Environment.getExternalStorageDirectory()
+                    + "/temp.jpg";
+
+            System.out.println("path" + filePath); // logCat으로 경로확인.
+            
+            File outFile = new File(m_oImageCropUri.getPath());
+			m_oImageCropUri = Uri.fromFile(outFile);
+			
+            Bitmap selectedImage = BitmapFactory.decodeFile(filePath);
+            // temp.jpg파일을 Bitmap으로 디코딩한다.
+
+            ImageView _image = (ImageView) findViewById(R.id.photo_img);
+            _image.setImageBitmap(selectedImage); 
+	  	 	}
+	  	 };
 	@Override
     public View onCreateView(View parent, String name, Context context, AttributeSet attrs) {
         return super.onCreateView(parent, name, context, attrs);
@@ -180,9 +199,12 @@ public class SignActivity extends Activity implements View.OnClickListener, Http
 		loginParams.add(new Params("nation", nation+""));
 		TelephonyManager systemService = (TelephonyManager)getSystemService    (Context.TELEPHONY_SERVICE);
 		String PhoneNumber = systemService.getLine1Number();
-		PhoneNumber = PhoneNumber.substring(PhoneNumber.length()-10,PhoneNumber.length());
-		String phone="0"+PhoneNumber;
-		loginParams.add(new Params("phone", phone));
+		if(PhoneNumber != null)
+		{
+			PhoneNumber = PhoneNumber.substring(PhoneNumber.length()-10,PhoneNumber.length());
+			String phone="0"+PhoneNumber;
+			loginParams.add(new Params("phone", phone));
+		}
 		if(m_oImageCropUri != null)
 		{
 			
@@ -219,6 +241,12 @@ public class SignActivity extends Activity implements View.OnClickListener, Http
 			}
 			case R.id.photo_img:
 			{
+				Intent intent = new Intent();
+				intent.setAction( Intent.ACTION_GET_CONTENT );  
+				intent.setType( "image/*" );
+//			    intent.putExtra("crop", "true");
+				startActivityForResult( intent,REQ_PICK_IMAGE );
+//			    break;
 //				 Intent intent = new Intent(Intent.ACTION_PICK);
 //			     intent.setType("image/*");
 //			     intent.putExtra("crop", "true");
@@ -227,13 +255,13 @@ public class SignActivity extends Activity implements View.OnClickListener, Http
 //			     intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
 //			     startActivityForResult(intent, REQ_PICK_IMAGE);
 //				doTakeAlbumAction();
-				 	Intent intent = new Intent(Intent.ACTION_GET_CONTENT, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-	                intent.setType("image/*");              // 모든 이미지
-	                intent.putExtra("crop", "true");        // Crop기능 활성화
-	                intent.putExtra(MediaStore.EXTRA_OUTPUT, getTempUri());     // 임시파일 생성
-	                intent.putExtra("outputFormat",  Bitmap.CompressFormat.JPEG.toString());
-	                intent.putExtra("output", m_oImageCropUri);
-	                startActivityForResult(intent, REQ_CODE_PICK_IMAGE);
+//				 	Intent intent = new Intent(Intent.ACTION_GET_CONTENT, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+//	                intent.setType("image/*");              // 모든 이미지
+//	                intent.putExtra("crop", "true");        // Crop기능 활성화
+//	                intent.putExtra(MediaStore.EXTRA_OUTPUT, getTempUri());     // 임시파일 생성
+//	                intent.putExtra("outputFormat",  Bitmap.CompressFormat.JPEG.toString());
+//	                intent.putExtra("output", m_oImageCropUri);
+//	                startActivityForResult(intent, REQ_CODE_PICK_IMAGE);
 	                // REQ_CODE_PICK_IMAGE == requestCode
 				break;
 			}
@@ -283,20 +311,9 @@ public class SignActivity extends Activity implements View.OnClickListener, Http
         case REQ_CODE_PICK_IMAGE:
             if (resultCode == RESULT_OK) {
                 if (imageData != null) {
-                    String filePath = Environment.getExternalStorageDirectory()
-                            + "/temp.jpg";
- 
-                    System.out.println("path" + filePath); // logCat으로 경로확인.
+                	m_oImageCropUri = imageData.getData();
+                	myHandler.postDelayed(myRunnable, 1000);
                     
-                    File outFile = new File(filePath);
-    				m_oImageCropUri = Uri.fromFile(outFile);
-    				
-                    Bitmap selectedImage = BitmapFactory.decodeFile(filePath);
-                    // temp.jpg파일을 Bitmap으로 디코딩한다.
- 
-                    ImageView _image = (ImageView) findViewById(R.id.photo_img);
-                    _image.setImageBitmap(selectedImage); 
-                    // temp.jpg파일을 이미지뷰에 씌운다.
                 }
             }
             break;

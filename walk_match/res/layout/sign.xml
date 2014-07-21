@@ -20,7 +20,8 @@
            android:layout_height="122dip"
            android:orientation="vertical"
            android:layout_marginBottom="15dip"
-           android:background="@drawable/login_join_picture">
+           android:background="@drawable/login_join_picture"
+           android:visibility="invisible">
            <TextView
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"

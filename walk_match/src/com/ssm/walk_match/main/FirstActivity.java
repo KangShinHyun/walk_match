@@ -142,9 +142,12 @@ public class FirstActivity extends Activity implements View.OnClickListener,Http
    		loginParams.add(new Params("nation", nation+""));
    		TelephonyManager systemService = (TelephonyManager)getSystemService    (Context.TELEPHONY_SERVICE);
 		String PhoneNumber = systemService.getLine1Number();
-		PhoneNumber = PhoneNumber.substring(PhoneNumber.length()-10,PhoneNumber.length());
-		String phone="0"+PhoneNumber;
-		loginParams.add(new Params("phone", phone));
+		if(PhoneNumber != null)
+		{
+			PhoneNumber = PhoneNumber.substring(PhoneNumber.length()-10,PhoneNumber.length());
+			String phone="0"+PhoneNumber;
+			loginParams.add(new Params("phone", phone));
+		}
    		loginService.setParam(loginParams);
    		loginService.doAsyncExecute(this);
    		startProgressDialog();

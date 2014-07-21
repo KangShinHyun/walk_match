@@ -60,9 +60,12 @@ public class FriendActivity extends BaseActivity implements HttpClientNet.OnResp
         {
         	TelephonyManager systemService = (TelephonyManager)getSystemService    (Context.TELEPHONY_SERVICE);
     		String PhoneNumber = systemService.getLine1Number();
-    		PhoneNumber = PhoneNumber.substring(PhoneNumber.length()-10,PhoneNumber.length());
-    		phone="0"+PhoneNumber;
-    		requestFriend(getContactList());
+    		if(PhoneNumber != null)
+    		{
+	    		PhoneNumber = PhoneNumber.substring(PhoneNumber.length()-10,PhoneNumber.length());
+	    		phone="0"+PhoneNumber;
+	    		requestFriend(getContactList());
+    		}
         }
 	}
 
@@ -113,8 +116,11 @@ public class FriendActivity extends BaseActivity implements HttpClientNet.OnResp
 		JSONArray arrayData = new JSONArray();
 		TelephonyManager systemService = (TelephonyManager)getSystemService    (Context.TELEPHONY_SERVICE);
 		String PhoneNumber = systemService.getLine1Number();
-		PhoneNumber = PhoneNumber.substring(PhoneNumber.length()-10,PhoneNumber.length());
-		phone="0"+PhoneNumber;
+		if(PhoneNumber != null)
+		{
+			PhoneNumber = PhoneNumber.substring(PhoneNumber.length()-10,PhoneNumber.length());
+			phone="0"+PhoneNumber;
+		}
 		try
 		{
 	    	for(int  i = 0 ; i < data.size() ; i++)
